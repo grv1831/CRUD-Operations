@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/prac');
+mongoose.connect("mongodb+srv://1831gkumar:grv%40123@cluster0.l8fn9i7.mongodb.net/crud", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
 
 const userSchema = mongoose.Schema({
   name: String,
