@@ -1,22 +1,30 @@
+const express = require("express");
+const app = express();
+const path = require('path');
+const userModel = require("./models/user");
+
 require('dotenv').config(); // Add this at the top
+
+app.use(express.json());
+
+const PORT = process.env.PORT || 3000;
 
 const mongoose = require('mongoose');
 
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("✅ MongoDB connected");
+    
+    app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
   })
   .catch(err => {
     console.error("❌ MongoDB connection error:", err);
   });
 
 
-const express = require("express");
-const app = express();
-const path = require('path');
-const userModel = require("./models/user");
-
-app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -56,7 +64,4 @@ app.post("/create", async (req,res) => {
   res.redirect("/read");
 })
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+
