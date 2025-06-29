@@ -1,14 +1,20 @@
+require('dotenv').config();
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log("MongoDB connected!");
+}).catch(err => {
+  console.error("MongoDB connection error:", err);
+});
+
+
 const express = require("express");
 const app = express();
 const path = require('path');
 const userModel = require("./models/user");
-
-require('dotenv').config();
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
